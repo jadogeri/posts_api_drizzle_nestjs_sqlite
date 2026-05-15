@@ -1,7 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { eq } from 'drizzle-orm';
-import { DRIZZLE, schema } from 'src/drizzle/drizzle.module';
+import { DRIZZLE } from 'src/drizzle/drizzle.module';
+import { schema } from 'src/drizzle/schemas/schema';
 
 @Injectable()
 export class UsersService {

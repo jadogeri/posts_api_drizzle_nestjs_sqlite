@@ -1,5 +1,5 @@
 import { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
-import { schema } from '../drizzle.module';
+import { schema } from '../schemas/schema';
 
 export async function seedUsers(db: BetterSQLite3Database<typeof schema>) {
   console.log('⏳ Purging old records and seeding users...');

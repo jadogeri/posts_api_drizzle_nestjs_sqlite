@@ -2,7 +2,7 @@ import { drizzle } from 'drizzle-orm/better-sqlite3';
 import Database from 'better-sqlite3';
 import { seedUsers } from './user.seeder';
 import { seedPosts } from './post.seeder';
-import { schema } from '../drizzle.module';
+import { schema } from '../schemas/schema';
 
 const sqlite = new Database('sqlite.db');
 const db = drizzle(sqlite, { schema });

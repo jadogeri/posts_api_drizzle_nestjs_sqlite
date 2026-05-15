@@ -1,5 +1,5 @@
 import { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
-import { schema } from '../drizzle.module';
+import { schema } from '../schemas/schema';
     
 interface SeededUsers {
   user1: typeof schema.users.$inferSelect;
