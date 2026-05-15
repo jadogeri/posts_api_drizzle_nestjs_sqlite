@@ -1,32 +1,43 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PostsService } from './post.service';  
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { PostService } from './post.service';  
+import { ApiTags } from '@nestjs/swagger';
+import { ApiCreatePost, ApiGetPosts, ApiGetPost, ApiUpdatePost, ApiDeletePost } from './decorators/post.decorator';
+import { CreatePostDto } from './dto/create-post.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
 
+
+@ApiTags('posts')
 @Controller('posts')
-export class PostsController {
-  constructor(private readonly postsService: PostsService) {}
+export class PostController {
+  constructor(private readonly postService: PostService) {}
 
   @Post()
-  create(@Body() createPostDto: { title: string; content: string; authorId: number }) {
-    return this.postsService.create(createPostDto);
+  @ApiCreatePost()
+  create(@Body() createPostDto: CreatePostDto) {
+    return this.postService.create(createPostDto);
   }
 
   @Get()
+  @ApiGetPosts()
   findAll() {
-    return this.postsService.findAll();
+    return this.postService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
+  @ApiGetPost()
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.postService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: { title?: string; content?: string }) {
-    return this.postsService.update(+id, updatePostDto);
+  @ApiUpdatePost()
+  update(@Param('id', ParseIntPipe) id: number, @Body() updatePostDto: UpdatePostDto) {
+    return this.postService.update(id, updatePostDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(+id);
+  @ApiDeletePost()
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.postService.remove(id);
   }
 }

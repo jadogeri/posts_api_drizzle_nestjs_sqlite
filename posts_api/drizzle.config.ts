@@ -1,9 +1,11 @@
 import { defineConfig } from 'drizzle-kit';
+import { DRIZZLE_CONFIG } from './src/constants/configuration.constant';
 
 export default defineConfig({
-  schema: './src/drizzle/schemas/schema.ts', 
+  out: DRIZZLE_CONFIG.OUT_DIR, // 👈 Drizzle will create this folder structure automatically
+  schema: DRIZZLE_CONFIG.SCHEMA_PATH, 
   dialect: 'sqlite',
   dbCredentials: {
-    url: 'sqlite.db',
+    url: DRIZZLE_CONFIG.DB_PATH,
   },
 });

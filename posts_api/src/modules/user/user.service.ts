@@ -5,7 +5,7 @@ import { DRIZZLE } from 'src/drizzle/drizzle.module';
 import { schema } from 'src/drizzle/schemas/schema';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @Inject(DRIZZLE) private db: BetterSQLite3Database<typeof schema>
   ) {}

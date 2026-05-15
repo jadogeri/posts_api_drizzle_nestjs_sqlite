@@ -3,8 +3,9 @@ import Database from 'better-sqlite3';
 import { seedUsers } from './user.seeder';
 import { seedPosts } from './post.seeder';
 import { schema } from '../schemas/schema';
+import { DRIZZLE_CONFIG } from 'src/constants/configuration.constant';
 
-const sqlite = new Database('sqlite.db');
+const sqlite = new Database(DRIZZLE_CONFIG.DB_PATH);
 const db = drizzle(sqlite, { schema });
 
 async function main() {
