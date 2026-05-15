@@ -1,0 +1,45 @@
+# Drizzle ORM Migration Commands
+
+Use these commands to manage database schemas, migrations, and local testing.
+
+## Local Development Workflow
+
+### 1. Generate Migration Files
+Generate SQL migration files based on schema changes made in `src/drizzle/schema.ts`.
+```bash
+npx drizzle-kit generate
+```
+
+### 2. Push Schema Direct to Database
+Push schema changes directly to the SQLite database without generating tracking files (best for rapid prototyping).
+```bash
+npx drizzle-kit push
+```
+
+### 3. Run Your Development Server
+Start the NestJS application server with hot-reload enabled.
+```bash
+npm run start:dev
+```
+
+---
+
+## Production & Utility Commands
+
+### Execute Generated Migrations
+Run your generated, historical SQL files sequentially against a production-like environment.
+```bash
+npx drizzle-kit migrate
+```
+
+### Open Drizzle Studio
+Launch the visual browser GUI database explorer to view and edit SQLite data tables.
+```bash
+npx drizzle-kit studio
+```
+
+### Drop or Reset Database State
+Roll back changes or fix synchronization drift problems between schemas and real tables.
+```bash
+npx drizzle-kit drop
+```

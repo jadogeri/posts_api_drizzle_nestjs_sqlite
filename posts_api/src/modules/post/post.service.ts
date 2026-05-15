@@ -1,26 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { Injectable, Inject } from '@nestjs/common';
+import { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
+import { eq } from 'drizzle-orm';
+import { DRIZZLE, schema } from 'src/drizzle/drizzle.module';
 
 @Injectable()
-export class PostService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+export class PostsService {
+  constructor(
+    @Inject(DRIZZLE) private db: BetterSQLite3Database<typeof schema>
+  ) {}
+
+  async create(data: { title: string; content: string; authorId: number }) {
+    return this.db.insert(schema.posts).values(data).returning().get();
   }
 
-  findAll() {
-    return `This action returns all post`;
+  async findAll() {
+    return this.db.query.posts.findMany({ with: { author: true } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: number) {
+    return this.db.query.posts.findFirst({
+      where: eq(schema.posts.id, id),
+      with: { author: true },
+    });
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: number, data: { title?: string; content?: string }) {
+    return this.db.update(schema.posts).set(data).where(eq(schema.posts.id, id)).returning().get();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: number) {
+    return this.db.delete(schema.posts).where(eq(schema.posts.id, id)).returning().get();
   }
 }
