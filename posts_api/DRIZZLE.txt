@@ -1,45 +1,56 @@
-# Drizzle ORM Migration Commands
+# Drizzle ORM Migration & Utility Commands
 
-Use these commands to manage database schemas, migrations, and local testing.
+Use these shorter project command workflows mapped via package execution scripts.
 
-## Local Development Workflow
+## Database Automation Lifecycle
 
-### 1. Generate Migration Files
-Generate SQL migration files based on schema changes made in `src/drizzle/schema.ts`.
+### Schema Blueprint Compilation
+Analyze schema structure updates and create physical tracking SQL assets:
 ```bash
-npx drizzle-kit generate
+npm run db:generate
 ```
 
-### 2. Push Schema Direct to Database
-Push schema changes directly to the SQLite database without generating tracking files (best for rapid prototyping).
+### Direct Schema Prototyping Synchronization
+Force instant code structure mirror synchronization actions to local target database binaries:
 ```bash
-npx drizzle-kit push
+npm run db:push
 ```
 
-### 3. Run Your Development Server
-Start the NestJS application server with hot-reload enabled.
+### Sequential Historical Pipeline Migration
+Safely execute historical generation migration folder assets step-by-step:
 ```bash
-npm run start:dev
+npm run db:migrate
+```
+
+### Programmatic Mock Data Seeding
+Purge outdated data schemas and seed predictable relational entry records:
+```bash
+npm run db:seed
+```
+
+### Visual Studio Database Browser GUI
+Launch the visual interactive web browser database management console panel:
+```bash
+npm run db:studio
+```
+
+### Internal Tracked State Removal Drop
+Reset tracking systems or fix system drift discrepancies safely:
+```bash
+npm run db:drop
 ```
 
 ---
 
-## Production & Utility Commands
-
-### Execute Generated Migrations
-Run your generated, historical SQL files sequentially against a production-like environment.
+## Standard Run Workflow
+To spin up a totally fresh developer database environment instance:
 ```bash
-npx drizzle-kit migrate
-```
+# 1. Sync structures
+npm run db:push
 
-### Open Drizzle Studio
-Launch the visual browser GUI database explorer to view and edit SQLite data tables.
-```bash
-npx drizzle-kit studio
-```
+# 2. Seed default data 
+npm run db:seed
 
-### Drop or Reset Database State
-Roll back changes or fix synchronization drift problems between schemas and real tables.
-```bash
-npx drizzle-kit drop
+# 3. Run development web server
+npm run start:dev
 ```
